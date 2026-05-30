@@ -48,23 +48,37 @@
     }
 
     .lead-gallery-wrapper {
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       width: 100%;
       background: #f7f9fc;
       border-radius: 12px;
       padding: 25px 0;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .lead-gallery-wrapper::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .lead-gallery-wrapper::-webkit-scrollbar-track {
+      background: #e6eef7;
+      border-radius: 999px;
+    }
+
+    .lead-gallery-wrapper::-webkit-scrollbar-thumb {
+      background: #57B7E7;
+      border-radius: 999px;
     }
 
     .lead-gallery-track {
       display: flex;
       width: max-content;
       gap: 24px;
-      animation: scrollLeads 45s linear infinite;
       align-items: stretch;
-    }
-
-    .lead-gallery-wrapper:hover .lead-gallery-track {
-      animation-play-state: paused;
+      padding: 0 24px;
     }
 
     .lead-card {
@@ -128,15 +142,6 @@
     .learn-more-btn:active {
       background: #57B7E7;
       color: white;
-    }
-
-    @keyframes scrollLeads {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
     }
 
     .team-dropdowns {
@@ -431,13 +436,20 @@
       <div class="team-list-panel">
         <ul></ul>
           <li>Isaac Bergstrom</li>
+          <li>Ellie Botham</li>
           <li>Jack Davis</li>
           <li>Sierra Gibson</li>
           <li>Macy Hughes</li>
           <li>Renata Kamel</li>
           <li>Gerrit Kuipers</li>
+          <li>Kyla Labrie</li>
+          <li>Niko Linder</li>
           <li>Oscar Oregan</li>
+          <li>Sage Ryden</li>
           <li>Kieran Schmidtke</li>
+          <li>Mikaela Taylor</li>
+          <li>Marina Vlachou</li>
+          <li>Meghan Whyte</li>
           <li>Devin Woudenberg</li>
         </ul>
       </div>
@@ -548,6 +560,60 @@
         }
       });
     });
+
+    /* AUTO-SCROLLING ADMIN & TEAM LEADS GALLERY */
+    const leadGalleryWrapper = document.querySelector(".lead-gallery-wrapper");
+    const leadGalleryTrack = document.querySelector(".lead-gallery-track");
+
+    if (leadGalleryWrapper && leadGalleryTrack) {
+      let galleryPaused = false;
+      let userScrollTimeout;
+      const autoScrollSpeed = 0.45;
+
+      function getHalfTrackWidth() {
+        return leadGalleryTrack.scrollWidth / 2;
+      }
+
+      function autoScrollLeads() {
+        if (!galleryPaused) {
+          leadGalleryWrapper.scrollLeft += autoScrollSpeed;
+
+          if (leadGalleryWrapper.scrollLeft >= getHalfTrackWidth()) {
+            leadGalleryWrapper.scrollLeft = 0;
+          }
+        }
+
+        requestAnimationFrame(autoScrollLeads);
+      }
+
+      leadGalleryWrapper.addEventListener("mouseenter", () => {
+        galleryPaused = true;
+      });
+
+      leadGalleryWrapper.addEventListener("mouseleave", () => {
+        galleryPaused = false;
+      });
+
+      leadGalleryWrapper.addEventListener("touchstart", () => {
+        galleryPaused = true;
+      }, { passive: true });
+
+      leadGalleryWrapper.addEventListener("touchend", () => {
+        clearTimeout(userScrollTimeout);
+        userScrollTimeout = setTimeout(() => {
+          galleryPaused = false;
+        }, 1800);
+      }, { passive: true });
+
+      leadGalleryWrapper.addEventListener("scroll", () => {
+        if (leadGalleryWrapper.scrollLeft >= getHalfTrackWidth()) {
+          leadGalleryWrapper.scrollLeft = leadGalleryWrapper.scrollLeft - getHalfTrackWidth();
+        }
+      });
+
+      autoScrollLeads();
+    }
+
   </script>
 
   <!-- SEARCH SCRIPT -->

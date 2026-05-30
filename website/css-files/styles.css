@@ -91,11 +91,12 @@ h1, h2, h3 {
 .dropdown {
   display: none;
   position: absolute;
-  top: 30px;
+  top: calc(100% - 2px);
   left: 0;
   background: #002754;
   min-width: 180px;
   padding: 10px 0;
+  z-index: 9999;
 }
 
 .nav-item:hover .dropdown {
@@ -382,6 +383,7 @@ td img {
   position: relative;
 
   /* FULL WIDTH BREAKOUT */
+
   width: 100vw;
   left: 50%;
   transform: translateX(-50%);
@@ -416,4 +418,48 @@ td img {
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
+  /* STICKY 'INTERESTED IN SUPPORTING AUVIC?'/DONATE TAB */
 
+.support-sticky-tab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #FDB813;
+  color: #002754;
+  padding: 14px 12px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: none;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  z-index: 99999;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.support-sticky-tab:hover {
+  transform: translateY(-50%) translateX(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* STICKY 'INTERESTED IN SUPPORTING AUVIC?'/DONATE TAB - mobile */
+
+@media (max-width: 640px) {
+  .support-sticky-tab {
+    top: auto;
+    bottom: 18px;
+    right: 14px;
+    transform: none;
+    writing-mode: horizontal-tb;
+    text-orientation: initial;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+  }
+
+  .support-sticky-tab:hover {
+    transform: translateY(-4px);
+  }
+}

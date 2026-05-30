@@ -77,20 +77,31 @@
     }
 
     .attendee-gallery-wrapper {
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       width: 100%;
       background: #f7f9fc;
       padding: 24px 0;
+      scroll-behavior: auto;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      scrollbar-width: none;
+      user-select: none;
+      touch-action: pan-x;
+    }
+
+    .attendee-gallery-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .attendee-gallery-wrapper::-webkit-scrollbar {
+      display: none;
     }
 
     .attendee-gallery-track {
       display: flex;
       gap: 18px;
-      animation: scrollAttendees 40s linear infinite;
-    }
-
-    .attendee-gallery-wrapper:hover .attendee-gallery-track {
-      animation-play-state: paused;
+      width: max-content;
     }
 
     .attendee-card {
@@ -114,6 +125,7 @@
       width: 100%;
       height: 210px;
       object-fit: cover;
+      pointer-events: none;
     }
 
     .attendee-role {
@@ -121,11 +133,6 @@
       color: white;
       text-align: center;
       padding: 12px;
-    }
-
-    @keyframes scrollAttendees {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
     }
 
     .button-wrap {
@@ -153,6 +160,38 @@
       text-align: center;
       line-height: 1.7;
     }
+
+    @media (max-width: 900px) {
+      .details-grid {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+      }
+
+      .detail-card {
+        background: transparent;
+        padding: 22px 18px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .detail-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      }
+
+      .detail-icon {
+        object-fit: cover;
+        display: block;
+        border-radius: 8px;
+      }
+
+      .attendee-card {
+        width: 180px;
+      }
+
+      .attendee-photo {
+        height: 190px;
+      }
+    }
   </style>
 </head>
 
@@ -161,52 +200,51 @@
 <body>
 
 <header class="header">
-    <img src="../media/auvic-logo-white.png" alt="AUVIC logo" class="logo">
+  <img src="../media/auvic-logo-white.png" alt="AUVIC logo" class="logo">
 
-    <div class="title">
-      <a href="index.html">AUVIC: Autonomous Underwater Vehicles</a>
+  <div class="title">
+    <a href="index.html">AUVIC: Autonomous Underwater Vehicles</a>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-item">
+      <a href="#">Vehicles</a>
+      <div class="dropdown">
+        <a href="vehicle-snappy.html">Snappy 2026</a>
+        <a href="vehicle-kraken.html">Kraken 2025</a>
+        <a href="vehicle-trident.html">Trident 2023</a>
+        <a href="vehicle-polaris.html">Polaris 2018 & 2019</a>
+        <a href="vehicle-redherring.html">Red Herring 2016 & 2017</a>
+        <a href="vehicle-aerius.html">Aerius 2009</a>
+      </div>
     </div>
 
-    <nav class="nav">
-      <div class="nav-item">
-        <a href="#">Vehicles</a>
-        <div class="dropdown">
-          <a href="vehicle-snappy.html">Snappy 2026</a>
-          <a href="vehicle-kraken.html">Kraken 2025</a>
-          <a href="vehicle-trident.html">Trident 2023</a>
-          <a href="vehicle-polaris.html">Polaris 2018 & 2019</a>
-          <a href="vehicle-redherring.html">Red Herring 2016 & 2017</a>
-          <a href="vehicle-aerius.html">Aerius 2009</a>
-        </div>
+    <div class="nav-item">
+      <a href="#">Competitions</a>
+      <div class="dropdown">
+        <a href="competition-2026.html">2026</a>
+        <a class="active-page" href="competition-2025.html">2025</a>
       </div>
+    </div>
 
-      <div class="nav-item">
-        <a href="#">Competitions</a>
-        <div class="dropdown">
-          <a href="competition-2026.html">2026</a>
-          <a class="active-page" href="competition-2025.html">2025</a>
-        </div>
-      </div>
+    <a href="about-us.html">About Us</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="contact-us.html">Contact Us</a>
 
-      <a href="about-us.html">About Us</a>
-      <a href="sponsors.html">Sponsors</a>
-      <a href="contact-us.html">Contact Us</a>
-
-      <div class="site-search">
-        <input type="text" id="siteSearchInput" placeholder="Search..." autocomplete="off">
-        <div id="searchResults" class="search-results"></div>
-      </div>
-      
-    </nav>
-  </header>
+    <div class="site-search">
+      <input type="text" id="siteSearchInput" placeholder="Search..." autocomplete="off">
+      <div id="searchResults" class="search-results"></div>
+    </div>
+  </nav>
+</header>
 
 <main class="competition-page">
 
-  <!-- MAIN TITLE -->
+  <!-- MAIN TITLE (Do not change - but copy and update year if creating a new page) -->
 
   <h1 class="page-title">Robosub 2025 Competition</h1>
 
-  <!-- MAIN IMAGE -->
+  <!-- MAIN IMAGE (*ensure you save all new images in the correct folder, and check with image sizing guidelines) -->
 
   <img src="../media/robosub2025-team.png" class="competition-main-image">
 
@@ -241,7 +279,7 @@
     <div class="attendee-gallery-wrapper">
       <div class="attendee-gallery-track">
 
-        <!-- Original Set (make sure to copy-paste this into the duplicate section whenever you update it - it will allow for a seamless transition) -->
+        <!-- Original Set (*if you make changes here, copy-paste into duplicate set) -->
 
         <div class="attendee-card">
           <div class="attendee-name">Isaac Bergstrom</div>
@@ -297,7 +335,7 @@
           <div class="attendee-role">Mechanical Team</div>
         </div>
 
-        <!-- Duplicate Set (Copy-paste the Original Set into this section) -->
+        <!-- Duplicate Set (*copy-paste the original set here) -->
 
         <div class="attendee-card">
           <div class="attendee-name">Isaac Bergstrom</div>
@@ -393,13 +431,108 @@
 
 </main>
 
-  <!-- FOOTER (Same on every page - copy-paste onto all pages if you make changes)-->
+<!-- FOOTER (Same on every page - copy-paste onto all pages if you make changes)-->
 
 <footer class="footer">
   <p>© AUVIC University of Victoria 2026</p>
 </footer>
 
-<!-- SEARCH SCRIPT -->
+<!-- PARTICIPANTS GALLERY SCROLL SCRIPT (*do not change) -->
+<script>
+  const attendeeGalleryWrapper = document.querySelector(".attendee-gallery-wrapper");
+  const attendeeGalleryTrack = document.querySelector(".attendee-gallery-track");
+
+  if (attendeeGalleryWrapper && attendeeGalleryTrack) {
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let isPaused = false;
+    let pauseTimer;
+
+    function getLoopPoint() {
+      return attendeeGalleryTrack.scrollWidth / 2;
+    }
+
+    function keepGalleryLooping() {
+      const loopPoint = getLoopPoint();
+
+      if (loopPoint <= 0) return;
+
+      if (attendeeGalleryWrapper.scrollLeft >= loopPoint) {
+        attendeeGalleryWrapper.scrollLeft -= loopPoint;
+      }
+    }
+
+    function pauseTemporarily() {
+      isPaused = true;
+      clearTimeout(pauseTimer);
+
+      pauseTimer = setTimeout(() => {
+        isPaused = false;
+      }, 1600);
+    }
+
+    function autoScrollGallery() {
+      if (!isPaused && !isDragging) {
+        attendeeGalleryWrapper.scrollLeft += 0.7;
+        keepGalleryLooping();
+      }
+
+      requestAnimationFrame(autoScrollGallery);
+    }
+
+    attendeeGalleryWrapper.addEventListener("scroll", keepGalleryLooping);
+
+    attendeeGalleryWrapper.addEventListener("mouseenter", () => {
+      isPaused = true;
+    });
+
+    attendeeGalleryWrapper.addEventListener("mouseleave", () => {
+      isPaused = false;
+      isDragging = false;
+    });
+
+    attendeeGalleryWrapper.addEventListener("mousedown", (event) => {
+      isDragging = true;
+      isPaused = true;
+      startX = event.pageX;
+      scrollStart = attendeeGalleryWrapper.scrollLeft;
+    });
+
+    attendeeGalleryWrapper.addEventListener("mousemove", (event) => {
+      if (!isDragging) return;
+
+      event.preventDefault();
+
+      const moveAmount = event.pageX - startX;
+      attendeeGalleryWrapper.scrollLeft = scrollStart - moveAmount;
+      keepGalleryLooping();
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (isDragging) {
+        isDragging = false;
+        pauseTemporarily();
+      }
+    });
+
+    attendeeGalleryWrapper.addEventListener("touchstart", () => {
+      isPaused = true;
+    }, { passive: true });
+
+    attendeeGalleryWrapper.addEventListener("touchend", () => {
+      pauseTemporarily();
+    }, { passive: true });
+
+    attendeeGalleryWrapper.addEventListener("wheel", () => {
+      pauseTemporarily();
+    }, { passive: true });
+
+    autoScrollGallery();
+  }
+</script>
+
+<!-- SEARCH SCRIPT (*if you make changes to the search script on one page, copy-paste into all other search script sections on all html pages) -->
 <script>
   const pages = [
     {
